@@ -47,12 +47,12 @@ TagManager:
   - name: Middle
     uniqueID: 3507388407
     locked: 0
+  - name: GateLighting
+    uniqueID: 2526551029
+    locked: 0
   - name: Front2
     uniqueID: 3871830237
     locked: 0
   - name: Front
     uniqueID: 1544797081
-    locked: 0
-  - name: GateLighting
-    uniqueID: 2526551029
     locked: 0
