@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Out
+    uniqueID: 3463017445
+    locked: 0
+  - name: Middle
+    uniqueID: 2282117243
+    locked: 0
+  - name: Front2
+    uniqueID: 3871830237
+    locked: 0
+  - name: Front
+    uniqueID: 1544797081
+    locked: 0
+  - name: GateLighting
+    uniqueID: 2526551029
+    locked: 0
