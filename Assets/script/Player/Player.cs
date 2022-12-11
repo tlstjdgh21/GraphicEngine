@@ -12,21 +12,24 @@ public enum playerState
 public class Player : MonoBehaviour
 {
 
-    public float moveSpeed;
+    public float MoveSpeed;
     public float Acceleration;
     public float Deceleration;
-    public float velPower;
+    public float VelocityPower;
 
     public Animator playerAnimator;
 
     private GameObject player;
     private State<Player>[] state;
     private StateMachine<Player> stateMachine;
+
     [HideInInspector]
-    public Rigidbody2D playerRigid { get; private set; }
+    public Rigidbody2D PlayerRigid { get; private set; }
+
     [HideInInspector]
-    public float moveDirection;
-    private bool m_isright;
+    public float MoveDirection;
+
+    private bool _isright;
 
 
     private void Start()
@@ -40,13 +43,12 @@ public class Player : MonoBehaviour
         stateMachine = new StateMachine<Player>();
         stateMachine.SetUp(this, state[(int)playerState.Idle]);
         player = this.gameObject;
-        playerRigid = player.GetComponent<Rigidbody2D>();
+        PlayerRigid = player.GetComponent<Rigidbody2D>();
 
     }
     private void FixedUpdate()
     {
         stateMachine.Excute();
-        playerLook();
     }
 
     public void ChangeState(playerState newState)
@@ -58,36 +60,32 @@ public class Player : MonoBehaviour
     {
         if (direction != 0)
         {
-            moveDirection = direction;
+            MoveDirection = direction;
         }
-        float targetSpeed = moveSpeed * direction;
-        float speedDifference = targetSpeed - playerRigid.velocity.x;
+        float targetSpeed = MoveSpeed * direction;
+        float speedDifference = targetSpeed - PlayerRigid.velocity.x;
         float acceleretionRate = (Mathf.Abs(targetSpeed) > 0.01f) ? Acceleration : Deceleration;
-        float movement = Mathf.Pow(Mathf.Abs(speedDifference) * acceleretionRate, velPower)
+        float movement = Mathf.Pow(Mathf.Abs(speedDifference) * acceleretionRate, VelocityPower)
             * Mathf.Sign(speedDifference);
 
         if (player != null)
-            playerRigid.AddForce(movement * Vector2.right);
+            PlayerRigid.AddForce(movement * Vector2.right);
 
-        moveDirection = moveDirection > 0 ? 1 : -1;
+        MoveDirection = MoveDirection > 0 ? 1 : -1;
     }
-    public void playerLook()
+
+    public void LookPlayer(float h)
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            m_isright = false;
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
+        //왼쪽 방향
+        if (h < 0)
+            _isright = false;
+        //오른쪽 방향
+        else if (h > 0)
+            _isright = true;
 
-            m_isright = true;
-        }
-        if (m_isright) transform.localScale = Vector3.one;
+        if (_isright) transform.localScale = Vector3.one;
         else transform.localScale = new Vector3(-1, 1, 1);
-
     }
-
-    
 
 }
 
@@ -125,6 +123,7 @@ namespace PlayerFsm
         {
             float h = Input.GetAxisRaw("Horizontal");
             enemy.PlayerMoving(h);
+            enemy.LookPlayer(h);
             if (Input.GetAxisRaw("Horizontal") == 0)
             {
                 enemy.ChangeState(playerState.Idle);

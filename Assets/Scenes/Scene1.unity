@@ -2221,12 +2221,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e1561edf64df6a48b31f05f4912e77c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  MoveSpeed: 5
   Acceleration: 5
   Deceleration: 15
-  velPower: 0.8
+  VelocityPower: 1
   playerAnimator: {fileID: 1496735673}
-  moveDirection: 0
+  MoveDirection: 0
 --- !u!4 &172889138
 Transform:
   m_ObjectHideFlags: 0
