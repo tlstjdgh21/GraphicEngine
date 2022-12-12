@@ -50,6 +50,9 @@ TagManager:
   - name: GateLighting
     uniqueID: 2526551029
     locked: 0
+  - name: Gate
+    uniqueID: 2884172851
+    locked: 0
   - name: Player
     uniqueID: 605014807
     locked: 0
