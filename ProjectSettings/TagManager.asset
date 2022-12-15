@@ -68,6 +68,9 @@ TagManager:
   - name: OutFloor
     uniqueID: 996795029
     locked: 0
+  - name: Scene2Player
+    uniqueID: 937588097
+    locked: 0
   - name: Angel
     uniqueID: 1997194273
     locked: 0
