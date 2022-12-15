@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
 
     private bool _isright;
 
+    private bool _isStop;
 
     private void Start()
     {
@@ -51,6 +52,13 @@ public class Player : MonoBehaviour
         stateMachine.Excute();
     }
 
+    public void OnTriggerStop()
+    {
+        playerAnimator.SetBool("isWalk", false);
+        PlayerRigid.velocity = Vector3.zero;
+        _isStop = true;
+    }
+
     public void ChangeState(playerState newState)
     {
         stateMachine.ChangeState(state[(int)newState]);
@@ -69,13 +77,16 @@ public class Player : MonoBehaviour
             * Mathf.Sign(speedDifference);
 
         if (player != null)
-            PlayerRigid.AddForce(movement * Vector2.right);
-
+            if(!_isStop)
+                PlayerRigid.AddForce(movement * Vector2.right);
+        
         MoveDirection = MoveDirection > 0 ? 1 : -1;
     }
 
     public void LookPlayer(float h)
     {
+        if (_isStop) return;
+
         //¿ÞÂÊ ¹æÇâ
         if (h < 0)
             _isright = false;
@@ -94,9 +105,9 @@ namespace PlayerFsm
     public class Idle : State<Player>
     {
         float oldTime;
-        public override void Enter(Player enemy)
+        public override void Enter(Player player)
         {
-            enemy.playerAnimator.SetBool("isWalk", false);
+            player.playerAnimator.SetBool("isWalk", false);
             Debug.Log("idle");
         }
         public override void Excute(Player enemy)
@@ -106,7 +117,6 @@ namespace PlayerFsm
                 enemy.ChangeState(playerState.Move);
             }
         }
-
         public override void Exit(Player enemy)
         {
         }
@@ -114,19 +124,21 @@ namespace PlayerFsm
     public class Move : State<Player>
     {
         float oldTime;
-        public override void Enter(Player enemy)
+
+        public override void Enter(Player player)
         {
-            enemy.playerAnimator.SetBool("isWalk", true);
+            player.playerAnimator.SetBool("isWalk", true);
             Debug.Log("move");
         }
-        public override void Excute(Player enemy)
+
+        public override void Excute(Player player)
         {
             float h = Input.GetAxisRaw("Horizontal");
-            enemy.PlayerMoving(h);
-            enemy.LookPlayer(h);
+            player.PlayerMoving(h);
+            player.LookPlayer(h);
             if (Input.GetAxisRaw("Horizontal") == 0)
             {
-                enemy.ChangeState(playerState.Idle);
+                player.ChangeState(playerState.Idle);
             }
         }
 

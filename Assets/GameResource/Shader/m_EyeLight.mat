@@ -47,7 +47,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Intencity: 1.44
-    - _Range: 1
+    - _Range: 0
     - _size: 2.26
     m_Colors: []
   m_BuildTextureStacks: []
