@@ -62,6 +62,9 @@ TagManager:
   - name: Front
     uniqueID: 1544797081
     locked: 0
+  - name: Out2
+    uniqueID: 3982478397
+    locked: 0
   - name: OutFloor
     uniqueID: 996795029
     locked: 0

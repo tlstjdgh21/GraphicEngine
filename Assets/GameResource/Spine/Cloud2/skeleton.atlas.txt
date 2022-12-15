@@ -1,0 +1,5 @@
+skeleton.png
+size:4096,4096
+filter:Linear,Linear
+Cloud2
+bounds:2,643,2347,1706
